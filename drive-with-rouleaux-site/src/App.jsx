@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 const INBOX_EMAIL = "rouleauxfit@gmail.com";
 const SHARED_THREAD_SUBJECT = "Drive With Rouleaux Lead Inbox";
-const FORM_ENDPOINT = "https://formspree.io/f/mykollao";
+const BREVO_API_KEY = import.meta.env?.VITE_BREVO_API_KEY || "";
+const BREVO_LIST_ID = 2;
 const FORM_DEBUG_MODE = false;
 
 const ATMOSPHERE_IMAGE_URL = "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1800&auto=format&fit=crop";
@@ -112,31 +113,81 @@ function getValidationError(form) {
 }
 
 async function sendLead(form) {
-  if (!FORM_ENDPOINT) throw new Error("FORM_ENDPOINT_MISSING");
+  if (!BREVO_API_KEY) {
+    throw new Error("Brevo API key is missing. Add VITE_BREVO_API_KEY in Vercel Environment Variables, then redeploy.");
+  }
 
-  const payload = buildLeadPayload(form);
-  const response = await fetch(FORM_ENDPOINT, {
+  const safeForm = { ...INITIAL_FORM, ...(form || {}) };
+  const payload = buildLeadPayload(safeForm);
+
+  const contactResponse = await fetch("https://api.brevo.com/v3/contacts", {
     method: "POST",
     headers: {
-      Accept: "application/json",
       "Content-Type": "application/json",
+      "api-key": BREVO_API_KEY,
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({
+      email: safeForm.email,
+      attributes: {
+        FIRSTNAME: safeForm.name,
+        SMS: safeForm.phone,
+        VEHICLE: safeForm.vehicle,
+        BUDGET: safeForm.budget,
+        TRADE: safeForm.trade,
+        TIMING: safeForm.timing,
+        MESSAGE: safeForm.message,
+        SOURCE: "Drive With Rouleaux Website",
+      },
+      listIds: safeForm.newsletterOptIn ? [BREVO_LIST_ID] : [],
+      updateEnabled: true,
+    }),
   });
 
-  let result = null;
-  try {
-    result = await response.json();
-  } catch {
-    result = null;
+  if (!contactResponse.ok) {
+    throw new Error("Failed to save lead to Brevo.");
   }
 
-  if (!response.ok) {
-    const formspreeMessage = result?.errors?.[0]?.message || result?.error || "Form submission failed.";
-    throw new Error(`SUBMIT_FAILED_${response.status}: ${formspreeMessage}`);
+  const emailResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "api-key": BREVO_API_KEY,
+    },
+    body: JSON.stringify({
+      sender: {
+        name: "Drive With Rouleaux",
+        email: INBOX_EMAIL,
+      },
+      to: [
+        {
+          email: safeForm.email,
+          name: safeForm.name,
+        },
+      ],
+      subject: "Thanks for reaching out to Drive With Rouleaux",
+      htmlContent: `
+        <div style="font-family:Arial,sans-serif;padding:24px;background:#0a0a0a;color:white;">
+          <h1 style="font-size:32px;margin:0 0 16px;">Request Received.</h1>
+          <p style="font-size:16px;line-height:1.7;color:#d4d4d8;">
+            Thanks for reaching out to Drive With Rouleaux.
+          </p>
+          <p style="font-size:16px;line-height:1.7;color:#d4d4d8;">
+            I got your request and I’ll follow up shortly with the cleanest next move.
+          </p>
+          <p style="margin-top:30px;font-size:16px;">
+            — Michael Roulo<br/>
+            Drive With Rouleaux
+          </p>
+        </div>
+      `,
+    }),
+  });
+
+  if (!emailResponse.ok) {
+    throw new Error("Lead saved, but the thank-you email failed.");
   }
 
-  return { response, result, leadId: payload.leadId };
+  return { leadId: payload.leadId };
 }
 
 function runSmokeTests() {
@@ -159,7 +210,8 @@ function runSmokeTests() {
   console.assert(TRUST_POINTS.length === 3, "There should be exactly three trust points.");
   console.assert(FAQS.length === 3, "There should be exactly three FAQ items.");
   console.assert(typeof BRAND_IMAGE_URL === "string" && BRAND_IMAGE_URL.length > 0, "Brand image URL should be set.");
-  console.assert(typeof FORM_ENDPOINT === "string" && FORM_ENDPOINT.startsWith("https://"), "Form endpoint should be a secure URL.");
+  console.assert(Number.isInteger(BREVO_LIST_ID) && BREVO_LIST_ID > 0, "Brevo list ID should be a positive integer.");
+  console.assert(typeof BREVO_API_KEY === "string", "Brevo API key should safely resolve to a string.");
 }
 
 runSmokeTests();
@@ -332,12 +384,12 @@ export default function App() {
       setStatus({
         type: "success",
         message: FORM_DEBUG_MODE
-          ? `Submitted to Formspree. Confirmation ID: ${submitResult.leadId}.`
+          ? `Submitted. Confirmation ID: ${submitResult.leadId}.`
           : "Got it. Your request was sent and I’ll reach out shortly with the next move.",
       });
       setForm(INITIAL_FORM);
     } catch (error) {
-      setStatus({ type: "error", message: error.message || "Something blocked the submission. Check your form endpoint or network settings." });
+      setStatus({ type: "error", message: error.message || "Something blocked the submission. Check your Brevo or Vercel settings." });
     } finally {
       setIsSubmitting(false);
     }
@@ -421,15 +473,9 @@ export default function App() {
                 <div className="flex items-center gap-4">
                   <LogoMark className="h-24 w-24" />
                   <div>
-                    <p className="text-sm font-black uppercase tracking-[0.25em] text-blue-300">
-                      Digital Business Card
-                    </p>
-                    <h2 className="mt-2 text-4xl font-black tracking-tight text-white">
-                      Michael Roulo
-                    </h2>
-                    <p className="mt-1 text-lg font-semibold text-zinc-400">
-                      Drive With Rouleaux
-                    </p>
+                    <p className="text-sm font-black uppercase tracking-[0.25em] text-blue-300">Digital Business Card</p>
+                    <h2 className="mt-2 text-4xl font-black tracking-tight text-white">Michael Roulo</h2>
+                    <p className="mt-1 text-lg font-semibold text-zinc-400">Drive With Rouleaux</p>
                   </div>
                 </div>
 
@@ -440,54 +486,30 @@ export default function App() {
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur">
-                  <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-400">
-                    Email
-                  </p>
-                  <a
-                    href={`mailto:${INBOX_EMAIL}`}
-                    className="mt-3 flex items-center gap-3 text-lg font-bold text-white transition hover:text-blue-300"
-                  >
+                  <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-400">Email</p>
+                  <a href={`mailto:${INBOX_EMAIL}`} className="mt-3 flex items-center gap-3 text-lg font-bold text-white transition hover:text-blue-300">
                     <Icon name="mail" className="h-5 w-5" />
                     {INBOX_EMAIL}
                   </a>
                 </div>
 
                 <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur">
-                  <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-400">
-                    Socials
-                  </p>
-
+                  <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-400">Socials</p>
                   <div className="mt-3 flex flex-wrap gap-3">
-                    <a
-                      href={INSTAGRAM_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-2xl border border-pink-400/20 bg-pink-500/10 px-4 py-3 text-sm font-black text-pink-100 transition hover:-translate-y-0.5 hover:bg-pink-500 hover:text-white"
-                    >
+                    <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-2xl border border-pink-400/20 bg-pink-500/10 px-4 py-3 text-sm font-black text-pink-100 transition hover:-translate-y-0.5 hover:bg-pink-500 hover:text-white">
                       <Icon name="instagram" className="h-4 w-4" /> Instagram
                     </a>
-
-                    <a
-                      href={LINKEDIN_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-2xl border border-blue-400/20 bg-blue-500/10 px-4 py-3 text-sm font-black text-blue-100 transition hover:-translate-y-0.5 hover:bg-blue-500 hover:text-white"
-                    >
+                    <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-2xl border border-blue-400/20 bg-blue-500/10 px-4 py-3 text-sm font-black text-blue-100 transition hover:-translate-y-0.5 hover:bg-blue-500 hover:text-white">
                       <Icon name="linkedin" className="h-4 w-4" /> LinkedIn
                     </a>
                   </div>
                 </div>
 
                 <div className="rounded-3xl border border-white/10 bg-blue-500/10 p-5 backdrop-blur sm:col-span-2">
-                  <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-300">
-                    Specialty
-                  </p>
+                  <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-300">Specialty</p>
                   <div className="mt-4 flex flex-wrap gap-3">
                     {TRUST_POINTS.map((point) => (
-                      <div
-                        key={point}
-                        className="rounded-2xl border border-blue-400/20 bg-black/20 px-4 py-2 text-sm font-bold text-blue-50"
-                      >
+                      <div key={point} className="rounded-2xl border border-blue-400/20 bg-black/20 px-4 py-2 text-sm font-bold text-blue-50">
                         {point}
                       </div>
                     ))}
