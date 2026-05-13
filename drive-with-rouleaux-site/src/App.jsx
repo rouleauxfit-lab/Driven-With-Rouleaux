@@ -33,20 +33,20 @@ const TRUST_POINTS = [
 const SERVICES = [
   {
     icon: "message",
-    title: "Ask the real questions",
-    text: "Payments, trades, leases, credit, timing, and whether a deal actually makes sense.",
+    title: "Ask",
+    text: "Questions about payments, trades, leases, credit, or timing.",
     prefill: "I have a car-buying question and want straight guidance.",
   },
   {
     icon: "shield",
-    title: "Shop with a game plan",
-    text: "A cleaner path before you walk into the process or start chasing listings online.",
+    title: "Plan",
+    text: "A cleaner path before you start chasing listings or walking into stores.",
     prefill: "I want help building a game plan for my next vehicle.",
   },
   {
     icon: "pin",
-    title: "Get human direction",
-    text: "No giant dealer maze. Just a real person helping you sort the next move.",
+    title: "Move",
+    text: "Simple next steps based on what you need and what makes sense.",
     prefill: "I want help figuring out the cleanest next move.",
   },
 ];
@@ -382,25 +382,23 @@ export default function App() {
           <div>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-zinc-300 shadow-2xl shadow-blue-500/10 backdrop-blur">
               <span className="h-2 w-2 rounded-full bg-blue-400" />
-              Car-buying guidance without the dealership circus.
+              Drive With Rouleaux
             </div>
 
             <h1 className="max-w-4xl text-5xl font-black leading-[0.9] tracking-[-0.04em] sm:text-6xl lg:text-7xl">
-              Cars without the circus.
-              <span className="block text-zinc-500">Real help before the numbers get loud.</span>
+              Your next car, handled better.
+              <span className="block text-zinc-500">Clear answers. Cleaner moves.</span>
             </h1>
 
             <p className="mt-8 max-w-2xl text-[1.08rem] leading-8 text-zinc-300">
-              Tell me what you need, what you want to spend, and what you’re driving now. I’ll help you cut through the noise, spot the smart move, and shop with more control.
+              Straightforward help with buying, trading, leasing, and finding the right vehicle.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <button type="button" onClick={scrollToContact} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-blue-500 px-6 py-3 text-base font-black text-white shadow-lg shadow-blue-500/20 transition hover:-translate-y-0.5 hover:bg-blue-600 active:scale-[0.98]">
-                Start Your Request <Icon name="arrow" className="h-4 w-4" />
+                Start Here <Icon name="arrow" className="h-4 w-4" />
               </button>
-              <button type="button" onClick={() => scrollToSection("about")} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-base font-black text-white transition hover:bg-white/10 active:scale-[0.98]">
-                About Me
-              </button>
+              
             </div>
 
             <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
@@ -432,7 +430,7 @@ export default function App() {
                 </div>
 
                 <p className="mt-6 max-w-xl leading-8 text-zinc-300">
-                  Automotive guidance, vehicle sourcing, trade advice, lease questions, and real-world dealership insight without the pressure-heavy sales routine.
+                  Automotive guidance, vehicle sourcing, trade advice, and real-world dealership insight.
                 </p>
               </div>
 
@@ -494,15 +492,15 @@ export default function App() {
           <div className="grid gap-6 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/[0.05] to-white/[0.02] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur lg:grid-cols-[0.8fr_1.2fr]">
             <div className="relative overflow-hidden rounded-[2rem] border border-blue-400/20 bg-gradient-to-br from-blue-500/20 via-zinc-950 to-black p-8">
               <p className="text-sm font-black uppercase tracking-[0.2em] text-blue-300">About Me</p>
-              <h2 className="mt-3 text-4xl font-black leading-tight text-white">Built from real dealership floors, not influencer scripts.</h2>
+              <h2 className="mt-3 text-4xl font-black leading-tight text-white">Real dealership experience. Cleaner car-buying help.</h2>
             </div>
 
             <div>
               <p className="leading-8 text-zinc-300">
-                I’ve spent the last 5+ years in automotive sales helping people navigate everything from first-time purchases to complicated trade situations, leases, performance cars, and hard-to-find inventory.
+                I’ve spent the last 5+ years in automotive sales helping people navigate first-time purchases, trades, leases, performance cars, and hard-to-find inventory.
               </p>
               <p className="mt-4 leading-8 text-zinc-300">
-                Drive With Rouleaux was built because most people feel overwhelmed walking into the car-buying process. Too many numbers, too many opinions, and too much pressure. I wanted to create something cleaner: a place where people can ask real questions, get honest direction, and feel more confident before making a major purchase.
+                Drive With Rouleaux was built to make the process feel more direct, more human, and easier to understand before making a major purchase.
               </p>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 <div className="rounded-2xl border border-blue-400/20 bg-blue-500/10 p-5">
@@ -522,8 +520,8 @@ export default function App() {
           <div className="grid gap-6 lg:grid-cols-[.75fr_1.25fr]">
             <div className="rounded-[2.5rem] border border-white/10 bg-white/[0.04] p-8 backdrop-blur">
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-400">Start here</p>
-              <h2 className="mt-3 text-4xl font-black tracking-tight">Send the basics. I’ll sort the next move.</h2>
-              <p className="mt-4 leading-8 text-zinc-300">New, used, lease, trade, budget questions, weird situations, all fair game.</p>
+              <h2 className="mt-3 text-4xl font-black tracking-tight">Send the basics.</h2>
+              <p className="mt-4 leading-8 text-zinc-300">New, used, lease, trade, budget questions, all fair game.</p>
 
               <div className="mt-6 space-y-3 text-sm text-zinc-300">
                 <p className="flex items-center gap-3"><Icon name="phone" className="h-4 w-4 text-blue-400" /> Call/Text: add your number here</p>
@@ -599,7 +597,7 @@ export default function App() {
         <section id="questions" className="mx-auto max-w-6xl px-5 pb-24 pt-8">
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur md:p-8">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-blue-400">FAQ</p>
-            <h2 className="mt-3 text-3xl font-black">Stuff people usually ask first.</h2>
+            <h2 className="mt-3 text-3xl font-black">Quick questions.</h2>
 
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               {FAQS.map((faq) => (
