@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const INBOX_EMAIL = "DriveWithRouleaux@gmail.com";
 const SHARED_THREAD_SUBJECT = "Drive With Rouleaux Lead Inbox";
-const FORM_ENDPOINT = "https://formspree.io/f/mykollao";
+const FORM_ENDPOINT = "https://formspree.io/f/xlgzvyqo";
 const FORM_DEBUG_MODE = false;
 
 const ATMOSPHERE_IMAGE_URL = "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1800&auto=format&fit=crop";
