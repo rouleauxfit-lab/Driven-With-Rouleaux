@@ -362,7 +362,7 @@ export default function App() {
           <LogoMark className="h-12 w-12" />
           <div>
             <p className="text-lg font-black tracking-tight">Drive With Rouleaux</p>
-            <p className="text-xs text-zinc-400">Auto buying help without the runaround.</p>
+            <p className="text-xs text-zinc-400">Better car-buying guidance.</p>
           </div>
         </button>
 
@@ -386,12 +386,12 @@ export default function App() {
             </div>
 
             <h1 className="max-w-4xl text-5xl font-black leading-[0.9] tracking-[-0.04em] sm:text-6xl lg:text-7xl">
-              Your next car, handled better.
-              <span className="block text-zinc-500">Clear answers. Cleaner moves.</span>
+              Drive smarter.
+              <span className="block text-zinc-500">Buy with clarity.</span>
             </h1>
 
             <p className="mt-8 max-w-2xl text-[1.08rem] leading-8 text-zinc-300">
-              Straightforward help with buying, trading, leasing, and finding the right vehicle.
+              Personal guidance for buying, trading, leasing, and finding the right fit.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -430,7 +430,7 @@ export default function App() {
                 </div>
 
                 <p className="mt-6 max-w-xl leading-8 text-zinc-300">
-                  Automotive guidance, vehicle sourcing, trade advice, and real-world dealership insight.
+                  A simple way to connect for vehicle advice, shopping help, trade guidance, and real-world dealership insight.
                 </p>
               </div>
 
@@ -524,8 +524,8 @@ export default function App() {
               <p className="mt-4 leading-8 text-zinc-300">New, used, lease, trade, budget questions, all fair game.</p>
 
               <div className="mt-6 space-y-3 text-sm text-zinc-300">
-                <p className="flex items-center gap-3"><Icon name="phone" className="h-4 w-4 text-blue-400" /> Call/Text: add your number here</p>
                 <p className="flex items-center gap-3"><Icon name="mail" className="h-4 w-4 text-blue-400" /> {INBOX_EMAIL}</p>
+                <p className="flex items-center gap-3"><Icon name="message" className="h-4 w-4 text-blue-400" /> Fast follow-up after every request</p>
               </div>
 
               <div className="mt-6 flex flex-wrap gap-3">
@@ -543,7 +543,7 @@ export default function App() {
               <form onSubmit={handleSubmit} className="relative p-6 md:p-8">
                 <div className="mb-5 rounded-2xl bg-zinc-950 p-4 text-white">
                   <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-400">Private lead request</p>
-                  <p className="mt-1 text-sm text-zinc-300">No pressure. No spam. Just enough info to help you move smart.</p>
+                  <p className="mt-1 text-sm text-zinc-300">No pressure. Just enough info to help point you in the right direction.</p>
                 </div>
 
                 <input type="hidden" name="_subject" value={SHARED_THREAD_SUBJECT} />
@@ -575,7 +575,7 @@ export default function App() {
                   <input name="trade" value={form.trade} onChange={handleChange} placeholder="Trade-in vehicle, if any" className="rounded-2xl border border-zinc-200 px-4 py-3 outline-none focus:border-blue-500" />
                   <label className="flex items-start gap-3 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm leading-6 text-zinc-700 md:col-span-2">
                     <input type="checkbox" name="newsletterOptIn" checked={form.newsletterOptIn} onChange={handleChange} className="mt-1 h-4 w-4 rounded border-zinc-300 accent-blue-500" />
-                    <span>Add me to the weekly Drive With Rouleaux email drop. I can unsubscribe anytime.</span>
+                    <span>Send me occasional Drive With Rouleaux car-buying tips and market notes.</span>
                   </label>
                   <textarea name="message" value={form.message} onChange={handleChange} placeholder="Anything else I should know?" rows={4} className="rounded-2xl border border-zinc-200 px-4 py-3 outline-none focus:border-blue-500 md:col-span-2" />
                 </div>
@@ -587,7 +587,7 @@ export default function App() {
                 )}
 
                 <button type="submit" disabled={isSubmitting} className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-zinc-950 px-6 py-4 text-lg font-black text-white transition hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-60">
-                  {isSubmitting ? "Sending..." : "Send My Auto Request"}
+                  {isSubmitting ? "Sending..." : "Send Request"}
                 </button>
               </form>
             </Card>
@@ -597,7 +597,7 @@ export default function App() {
         <section id="questions" className="mx-auto max-w-6xl px-5 pb-24 pt-8">
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur md:p-8">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-blue-400">FAQ</p>
-            <h2 className="mt-3 text-3xl font-black">Quick questions.</h2>
+            <h2 className="mt-3 text-3xl font-black">Questions</h2>
 
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               {FAQS.map((faq) => (
@@ -613,3 +613,4 @@ export default function App() {
     </div>
   );
 }
+
