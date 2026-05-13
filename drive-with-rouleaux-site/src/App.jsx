@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const INBOX_EMAIL = "rouleauxfit@gmail.com";
+const INBOX_EMAIL = "DriveWithRouleaux@gmail.com";
 const SHARED_THREAD_SUBJECT = "Drive With Rouleaux Lead Inbox";
 const FORM_ENDPOINT = "https://formspree.io/f/mykollao";
 const FORM_DEBUG_MODE = false;
@@ -50,6 +50,12 @@ const SERVICES = [
     prefill: "I want help figuring out the cleanest next move.",
   },
 ];
+
+const TESTIMONIAL = {
+  quote:
+    "The process felt way less overwhelming. Straight answers, no pressure, and actually helpful guidance.",
+  author: "Early Drive With Rouleaux user",
+};
 
 const FAQS = [
   {
@@ -282,7 +288,7 @@ function HeroVisual() {
   }
 
   return (
-    <div className="relative z-10 flex min-h-[420px] items-center justify-center overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-black via-zinc-950 to-blue-950/50 shadow-[0_35px_120px_rgba(0,0,0,0.55)]">
+    <div className="relative z-10 flex min-h-[320px] md:min-h-[420px] items-center justify-center overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-black via-zinc-950 to-blue-950/50 shadow-[0_35px_120px_rgba(0,0,0,0.55)]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_35%_20%,rgba(59,130,246,0.25),transparent_35%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_42%)]" />
       <div className="absolute -left-16 top-16 h-2 w-[32rem] rotate-[-18deg] rounded-full bg-blue-500/30 blur-md" />
       <div className="absolute right-[-7rem] bottom-24 h-2 w-[28rem] rotate-[14deg] rounded-full bg-white/10 blur-md" />
@@ -401,7 +407,7 @@ export default function App() {
               
             </div>
 
-            <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
+            <div className="mt-6 grid max-w-2xl gap-3 sm:grid-cols-3">
               {TRUST_POINTS.map((point) => (
                 <div key={point} className="rounded-3xl border border-blue-400/20 bg-blue-500/10 p-4 text-sm font-bold text-blue-50 backdrop-blur">
                   {point}
@@ -586,7 +592,17 @@ export default function App() {
           </div>
         </section>
 
-        <section id="questions" className="mx-auto max-w-6xl px-5 pb-24 pt-8">
+        <section className="mx-auto max-w-6xl px-5 py-6">
+          <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-blue-500/10 to-white/5 p-8 backdrop-blur">
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-blue-300">Early Feedback</p>
+            <blockquote className="mt-4 max-w-3xl text-2xl font-bold leading-relaxed text-white md:text-3xl">
+              “{TESTIMONIAL.quote}”
+            </blockquote>
+            <p className="mt-4 text-sm font-semibold text-zinc-400">{TESTIMONIAL.author}</p>
+          </div>
+        </section>
+
+        <section id="questions" className="mx-auto max-w-6xl px-5 pb-16 pt-6">
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur md:p-8">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-blue-400">FAQ</p>
             <h2 className="mt-3 text-3xl font-black">Questions</h2>
@@ -601,7 +617,20 @@ export default function App() {
             </div>
           </div>
         </section>
-      </main>
+      <footer className="relative z-10 border-t border-white/10 px-5 py-8">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left">
+          <div>
+            <p className="text-lg font-black text-white">Drive With Rouleaux</p>
+            <p className="mt-1 text-sm text-zinc-500">Better car-buying guidance.</p>
+          </div>
+
+          <div className="flex items-center gap-4 text-sm text-zinc-400">
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="transition hover:text-white">Instagram</a>
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="transition hover:text-white">LinkedIn</a>
+            <a href={`mailto:${INBOX_EMAIL}`} className="transition hover:text-white">Email</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
