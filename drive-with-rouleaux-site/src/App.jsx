@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const INBOX_EMAIL = "rouleauxfit@gmail.com";
 const SHARED_THREAD_SUBJECT = "Drive With Rouleaux Lead Inbox";
+const FORM_ENDPOINT = "https://formspree.io/f/mykollao";
 const FORM_DEBUG_MODE = false;
 
 const ATMOSPHERE_IMAGE_URL = "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1800&auto=format&fit=crop";
@@ -69,12 +70,6 @@ function clean(value) {
   return String(value || "").trim();
 }
 
-function buildEmailBody(form) {
-  const safeForm = { ...INITIAL_FORM, ...(form || {}) };
-
-  return `NEW AUTO REQUEST\n\nName: ${clean(safeForm.name)}\nPhone: ${clean(safeForm.phone)}\nEmail: ${clean(safeForm.email)}\nNewsletter Opt-In: ${safeForm.newsletterOptIn ? "Yes" : "No"}\nShopping For: ${clean(safeForm.shoppingFor)}\nVehicle Wanted: ${clean(safeForm.vehicle)}\nBudget / Payment Goal: ${clean(safeForm.budget)}\nTrade-In: ${clean(safeForm.trade)}\nTiming: ${clean(safeForm.timing)}\n\nMessage:\n${clean(safeForm.message)}\n\n---\nSent from the Drive With Rouleaux website.`;
-}
-
 function buildLeadPayload(form) {
   const safeForm = { ...INITIAL_FORM, ...(form || {}) };
   const leadId = `DWR-${Date.now()}`;
@@ -87,15 +82,13 @@ function buildLeadPayload(form) {
     name: clean(safeForm.name),
     phone: clean(safeForm.phone),
     email: clean(safeForm.email),
-    newsletterOptIn: Boolean(safeForm.newsletterOptIn),
-    newsletterStatus: safeForm.newsletterOptIn ? "Add to weekly newsletter list" : "Do not add to newsletter list",
+    newsletterOptIn: safeForm.newsletterOptIn ? "Yes" : "No",
     shoppingFor: clean(safeForm.shoppingFor),
     vehicle: clean(safeForm.vehicle),
     budget: clean(safeForm.budget),
     trade: clean(safeForm.trade),
     timing: clean(safeForm.timing),
     message: clean(safeForm.message),
-    leadSummary: `${buildEmailBody(safeForm)}\n\nLead ID: ${leadId}`,
   };
 }
 
@@ -114,36 +107,42 @@ async function sendLead(form) {
   const safeForm = { ...INITIAL_FORM, ...(form || {}) };
   const payload = buildLeadPayload(safeForm);
 
-  const response = await fetch("https://formspree.io/f/mykollao", {
+  const response = await fetch(FORM_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
     body: JSON.stringify({
-      name: safeForm.name,
-      phone: safeForm.phone,
-      email: safeForm.email,
-      vehicle: safeForm.vehicle,
-      budget: safeForm.budget,
-      trade: safeForm.trade,
-      timing: safeForm.timing,
-      shoppingFor: safeForm.shoppingFor,
-      newsletterOptIn: safeForm.newsletterOptIn ? "Yes" : "No",
-      message: safeForm.message,
-      subject: payload._subject,
+      _subject: payload._subject,
+      _replyto: payload._replyto,
+      brand: payload.brand,
+      leadId: payload.leadId,
+      name: payload.name,
+      phone: payload.phone,
+      email: payload.email,
+      newsletterOptIn: payload.newsletterOptIn,
+      shoppingFor: payload.shoppingFor,
+      vehicle: payload.vehicle,
+      budget: payload.budget,
+      trade: payload.trade,
+      timing: payload.timing,
+      message: payload.message,
     }),
   });
 
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(result.errors?.[0]?.message || "Failed to send lead.");
+  let result = null;
+  try {
+    result = await response.json();
+  } catch {
+    result = null;
   }
 
-  return {
-    leadId: payload.leadId,
-  };
+  if (!response.ok) {
+    throw new Error(result?.errors?.[0]?.message || "Failed to send lead.");
+  }
+
+  return { leadId: payload.leadId };
 }
 
 function runSmokeTests() {
@@ -154,10 +153,8 @@ function runSmokeTests() {
     vehicle: "Ford F-150",
     shoppingFor: "Used vehicle",
   };
-  const emailBody = buildEmailBody(testForm);
   const payload = buildLeadPayload(testForm);
 
-  console.assert(emailBody.includes("NEW AUTO REQUEST"), "Email body should include the lead heading.");
   console.assert(payload._subject.includes(SHARED_THREAD_SUBJECT), "Payload should include the shared email subject.");
   console.assert(payload.leadId.startsWith("DWR-"), "Payload should include a unique lead ID.");
   console.assert(getValidationError(testForm) === "", "Valid test form should pass validation.");
@@ -166,7 +163,8 @@ function runSmokeTests() {
   console.assert(TRUST_POINTS.length === 3, "There should be exactly three trust points.");
   console.assert(FAQS.length === 3, "There should be exactly three FAQ items.");
   console.assert(typeof BRAND_IMAGE_URL === "string" && BRAND_IMAGE_URL.length > 0, "Brand image URL should be set.");
-  }
+  console.assert(typeof FORM_ENDPOINT === "string" && FORM_ENDPOINT.startsWith("https://formspree.io"), "Formspree endpoint should be set.");
+}
 
 runSmokeTests();
 
