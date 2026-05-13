@@ -617,6 +617,8 @@ export default function App() {
             </div>
           </div>
         </section>
+      </main>
+
       <footer className="relative z-10 border-t border-white/10 px-5 py-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left">
           <div>
