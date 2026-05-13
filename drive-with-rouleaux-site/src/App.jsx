@@ -8,6 +8,8 @@ const FORM_DEBUG_MODE = false;
 const ATMOSPHERE_IMAGE_URL = "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1800&auto=format&fit=crop";
 const HERO_IMAGE_URL = "";
 const BRAND_IMAGE_URL = "/dwr-logo.jpeg";
+const INSTAGRAM_URL = "https://www.instagram.com/drivewithrouleaux?igsh=MXRpaWp6eGQxemswcg%3D%3D&utm_source=qr";
+const LINKEDIN_URL = "https://www.linkedin.com/in/michael-roulo-969705234?utm_source=share_via&utm_content=profile&utm_medium=member_ios";
 
 const INITIAL_FORM = {
   name: "",
@@ -280,6 +282,28 @@ function Icon({ name, className = "" }) {
     return (
       <svg {...common}>
         <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.7.6 2.5a2 2 0 0 1-.5 2.1L8 9.5a16 16 0 0 0 6.5 6.5l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.6.5 2.5.6A2 2 0 0 1 22 16.9z" />
+      </svg>
+    );
+  }
+
+  if (name === "instagram") {
+    return (
+      <svg {...common}>
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+      </svg>
+    );
+  }
+
+  if (name === "linkedin") {
+    return (
+      <svg {...common}>
+        <rect x="4" y="4" width="16" height="16" rx="2" />
+        <path d="M8 11v5" />
+        <path d="M8 8h.01" />
+        <path d="M12 16v-3a2 2 0 1 1 4 0v3" />
+        <path d="M12 11v5" />
       </svg>
     );
   }
@@ -598,6 +622,26 @@ export default function AutoSalesContactWebsite() {
                 <p className="flex items-center gap-3"><Icon name="phone" className="h-4 w-4 text-blue-400" /> Call/Text: add your number here</p>
                 <p className="flex items-center gap-3"><Icon name="mail" className="h-4 w-4 text-blue-400" /> {INBOX_EMAIL}</p>
               </div>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-2xl border border-pink-400/20 bg-pink-500/10 px-4 py-3 text-sm font-black text-pink-100 transition hover:-translate-y-0.5 hover:bg-pink-500 hover:text-white"
+                >
+                  <Icon name="instagram" className="h-4 w-4" /> Instagram
+                </a>
+
+                <a
+                  href={LINKEDIN_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-2xl border border-blue-400/20 bg-blue-500/10 px-4 py-3 text-sm font-black text-blue-100 transition hover:-translate-y-0.5 hover:bg-blue-500 hover:text-white"
+                >
+                  <Icon name="linkedin" className="h-4 w-4" /> LinkedIn
+                </a>
+              </div>
             </div>
 
             <Card className="overflow-hidden border-white/10 bg-white text-zinc-950 shadow-[0_25px_80px_rgba(0,0,0,0.35)]">
@@ -736,3 +780,4 @@ export default function AutoSalesContactWebsite() {
     </div>
   );
 }
+
