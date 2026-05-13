@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 const INBOX_EMAIL = "rouleauxfit@gmail.com";
 const SHARED_THREAD_SUBJECT = "Drive With Rouleaux Lead Inbox";
-const BREVO_API_KEY = import.meta.env?.VITE_BREVO_API_KEY || "";
 const BREVO_LIST_ID = 2;
 const FORM_DEBUG_MODE = false;
 
@@ -113,75 +112,39 @@ function getValidationError(form) {
 }
 
 async function sendLead(form) {
-  if (!BREVO_API_KEY) {
-    throw new Error("Brevo API key is missing. Add VITE_BREVO_API_KEY in Vercel Environment Variables, then redeploy.");
-  }
-
   const safeForm = { ...INITIAL_FORM, ...(form || {}) };
   const payload = buildLeadPayload(safeForm);
 
-  const contactResponse = await fetch("https://api.brevo.com/v3/contacts", {
+  const response = await fetch("https://formspree.io/f/mykollao", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "api-key": BREVO_API_KEY,
+      Accept: "application/json",
     },
     body: JSON.stringify({
+      name: safeForm.name,
+      phone: safeForm.phone,
       email: safeForm.email,
-      attributes: {
-        FIRSTNAME: safeForm.name,
-        SMS: safeForm.phone,
-      },
-      listIds: safeForm.newsletterOptIn ? [BREVO_LIST_ID] : [],
-      updateEnabled: true,
+      vehicle: safeForm.vehicle,
+      budget: safeForm.budget,
+      trade: safeForm.trade,
+      timing: safeForm.timing,
+      shoppingFor: safeForm.shoppingFor,
+      newsletterOptIn: safeForm.newsletterOptIn ? "Yes" : "No",
+      message: safeForm.message,
+      subject: payload._subject,
     }),
   });
 
-  if (!contactResponse.ok) {
-    throw new Error("Failed to save lead to Brevo.");
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.errors?.[0]?.message || "Failed to send lead.");
   }
 
-  const emailResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "api-key": BREVO_API_KEY,
-    },
-    body: JSON.stringify({
-      sender: {
-        name: "Drive With Rouleaux",
-        email: INBOX_EMAIL,
-      },
-      to: [
-        {
-          email: safeForm.email,
-          name: safeForm.name,
-        },
-      ],
-      subject: "Thanks for reaching out to Drive With Rouleaux",
-      htmlContent: `
-        <div style="font-family:Arial,sans-serif;padding:24px;background:#0a0a0a;color:white;">
-          <h1 style="font-size:32px;margin:0 0 16px;">Request Received.</h1>
-          <p style="font-size:16px;line-height:1.7;color:#d4d4d8;">
-            Thanks for reaching out to Drive With Rouleaux.
-          </p>
-          <p style="font-size:16px;line-height:1.7;color:#d4d4d8;">
-            I got your request and I’ll follow up shortly with the cleanest next move.
-          </p>
-          <p style="margin-top:30px;font-size:16px;">
-            — Michael Roulo<br/>
-            Drive With Rouleaux
-          </p>
-        </div>
-      `,
-    }),
-  });
-
-  if (!emailResponse.ok) {
-    throw new Error("Lead saved, but the thank-you email failed.");
-  }
-
-  return { leadId: payload.leadId };
+  return {
+    leadId: payload.leadId,
+  };
 }
 
 function runSmokeTests() {
@@ -204,8 +167,7 @@ function runSmokeTests() {
   console.assert(TRUST_POINTS.length === 3, "There should be exactly three trust points.");
   console.assert(FAQS.length === 3, "There should be exactly three FAQ items.");
   console.assert(typeof BRAND_IMAGE_URL === "string" && BRAND_IMAGE_URL.length > 0, "Brand image URL should be set.");
-  console.assert(Number.isInteger(BREVO_LIST_ID) && BREVO_LIST_ID > 0, "Brevo list ID should be a positive integer.");
-  console.assert(typeof BREVO_API_KEY === "string", "Brevo API key should safely resolve to a string.");
+  console.assert(Number.isInteger(BREVO_LIST_ID) && BREVO_LIST_ID > 0, "Brevo list ID should be ready for the serverless lead handler.");
 }
 
 runSmokeTests();
@@ -383,7 +345,7 @@ export default function App() {
       });
       setForm(INITIAL_FORM);
     } catch (error) {
-      setStatus({ type: "error", message: error.message || "Something blocked the submission. Check your Brevo or Vercel settings." });
+      setStatus({ type: "error", message: error.message || "Something blocked the submission. Check your Vercel API function and Brevo settings." });
     } finally {
       setIsSubmitting(false);
     }
@@ -657,3 +619,4 @@ export default function App() {
     </div>
   );
 }
+
