@@ -131,12 +131,6 @@ async function sendLead(form) {
       attributes: {
         FIRSTNAME: safeForm.name,
         SMS: safeForm.phone,
-        VEHICLE: safeForm.vehicle,
-        BUDGET: safeForm.budget,
-        TRADE: safeForm.trade,
-        TIMING: safeForm.timing,
-        MESSAGE: safeForm.message,
-        SOURCE: "Drive With Rouleaux Website",
       },
       listIds: safeForm.newsletterOptIn ? [BREVO_LIST_ID] : [],
       updateEnabled: true,
