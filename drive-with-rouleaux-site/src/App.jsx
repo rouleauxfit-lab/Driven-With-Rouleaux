@@ -470,7 +470,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className="mx-auto grid max-w-6xl gap-5 px-5 py-8 md:grid-cols-3">
+        <section className="mx-auto grid max-w-6xl gap-5 px-5 py-6 md:grid-cols-3">
           {SERVICES.map((item) => (
             <Card key={item.title} className="group relative overflow-hidden border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.03] text-white transition duration-300 hover:-translate-y-2 hover:border-blue-400/30 hover:bg-white/[0.09] hover:shadow-2xl hover:shadow-blue-950/20">
               <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-blue-500/10 blur-2xl" />
@@ -488,7 +488,7 @@ export default function App() {
           ))}
         </section>
 
-        <section id="about" className="mx-auto max-w-6xl px-5 py-10">
+        <section id="about" className="mx-auto max-w-6xl px-5 py-6">
           <div className="grid gap-6 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/[0.05] to-white/[0.02] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur lg:grid-cols-[0.8fr_1.2fr]">
             <div className="relative overflow-hidden rounded-[2rem] border border-blue-400/20 bg-gradient-to-br from-blue-500/20 via-zinc-950 to-black p-8">
               <p className="text-sm font-black uppercase tracking-[0.2em] text-blue-300">About Me</p>
@@ -516,7 +516,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="contact" className="mx-auto max-w-6xl px-5 py-10">
+        <section id="contact" className="mx-auto max-w-6xl px-5 py-6">
           <div className="grid gap-6 lg:grid-cols-[.75fr_1.25fr]">
             <div className="rounded-[2.5rem] border border-white/10 bg-white/[0.04] p-8 backdrop-blur">
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-400">Start here</p>
@@ -528,15 +528,7 @@ export default function App() {
                 <p className="flex items-center gap-3"><Icon name="message" className="h-4 w-4 text-blue-400" /> Fast follow-up after every request</p>
               </div>
 
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-2xl border border-pink-400/20 bg-pink-500/10 px-4 py-3 text-sm font-black text-pink-100 transition hover:-translate-y-0.5 hover:bg-pink-500 hover:text-white">
-                  <Icon name="instagram" className="h-4 w-4" /> Instagram
-                </a>
-                <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-2xl border border-blue-400/20 bg-blue-500/10 px-4 py-3 text-sm font-black text-blue-100 transition hover:-translate-y-0.5 hover:bg-blue-500 hover:text-white">
-                  <Icon name="linkedin" className="h-4 w-4" /> LinkedIn
-                </a>
               </div>
-            </div>
 
             <Card className="overflow-hidden border-white/10 bg-white text-zinc-950 shadow-[0_25px_80px_rgba(0,0,0,0.35)]">
               <div className="h-2 bg-gradient-to-r from-blue-500 via-blue-300 to-blue-500" />
@@ -613,4 +605,3 @@ export default function App() {
     </div>
   );
 }
-
