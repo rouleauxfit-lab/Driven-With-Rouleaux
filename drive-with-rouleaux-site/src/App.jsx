@@ -442,12 +442,20 @@ export default function App() {
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur">
-                  <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-400">Email</p>
-                  <a href={`mailto:${INBOX_EMAIL}`} className="mt-3 flex items-center gap-3 text-lg font-bold text-white transition hover:text-blue-300">
-                    <Icon name="mail" className="h-5 w-5" />
-                    {INBOX_EMAIL}
-                  </a>
-                </div>
+  <p className="text-center text-xs font-black uppercase tracking-[0.2em] text-blue-400">
+    Email
+  </p>
+
+  <div className="mt-4 flex justify-center">
+    <a
+      href={`mailto:${INBOX_EMAIL}`}
+      className="flex max-w-full flex-wrap items-center justify-center gap-3 text-center text-base font-bold leading-6 text-white transition hover:text-blue-300"
+    >
+      <Icon name="mail" className="h-5 w-5 shrink-0" />
+      <span className="break-all">{INBOX_EMAIL}</span>
+    </a>
+  </div>
+</div>
 
                 <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur">
                   <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-400">Socials</p>
