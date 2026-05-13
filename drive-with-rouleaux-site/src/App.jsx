@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 const INBOX_EMAIL = "rouleauxfit@gmail.com";
 const SHARED_THREAD_SUBJECT = "Drive With Rouleaux Lead Inbox";
-const BREVO_LIST_ID = 2;
 const FORM_DEBUG_MODE = false;
 
 const ATMOSPHERE_IMAGE_URL = "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1800&auto=format&fit=crop";
@@ -167,8 +166,7 @@ function runSmokeTests() {
   console.assert(TRUST_POINTS.length === 3, "There should be exactly three trust points.");
   console.assert(FAQS.length === 3, "There should be exactly three FAQ items.");
   console.assert(typeof BRAND_IMAGE_URL === "string" && BRAND_IMAGE_URL.length > 0, "Brand image URL should be set.");
-  console.assert(Number.isInteger(BREVO_LIST_ID) && BREVO_LIST_ID > 0, "Brevo list ID should be ready for the serverless lead handler.");
-}
+  }
 
 runSmokeTests();
 
@@ -345,7 +343,7 @@ export default function App() {
       });
       setForm(INITIAL_FORM);
     } catch (error) {
-      setStatus({ type: "error", message: error.message || "Something blocked the submission. Check your Vercel API function and Brevo settings." });
+      setStatus({ type: "error", message: error.message || "Something blocked the submission. Please try again." });
     } finally {
       setIsSubmitting(false);
     }
@@ -619,4 +617,3 @@ export default function App() {
     </div>
   );
 }
-
