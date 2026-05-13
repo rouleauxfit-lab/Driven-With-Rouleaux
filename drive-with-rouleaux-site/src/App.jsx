@@ -709,73 +709,79 @@ export default function AutoSalesContactWebsite() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-5 py-14">
-          <div className="grid gap-8 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/[0.05] to-white/[0.02] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur lg:grid-cols-[0.8fr_1.2fr]">
-            <div className="relative overflow-hidden rounded-[2rem] border border-blue-400/20 bg-gradient-to-br from-blue-500/20 via-zinc-950 to-black p-8">
-              <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full border border-white/10" />
+$1
 
-              <p className="text-sm font-black uppercase tracking-[0.2em] text-blue-300">
-                About Mike
-              </p>
-
-              <h2 className="mt-3 text-4xl font-black leading-tight text-white">
-                Built from real dealership floors, not influencer scripts.
-              </h2>
-
-              <p className="mt-5 leading-8 text-blue-50/90">
-                I’ve spent the last 5+ years in automotive sales helping people navigate everything from first-time purchases to complicated trade situations, leases, performance cars, and hard-to-find inventory.
-              </p>
-
-              <p className="mt-5 leading-8 text-blue-50/80">
-                Drive With Rouleaux was built because most people feel overwhelmed walking into the car-buying process. Too many numbers. Too many opinions. Too much pressure. I wanted to create something cleaner. A place where people could ask real questions, get honest direction, and feel more confident before making a major purchase.
+        <section className="mx-auto max-w-6xl px-5 py-10">
+          <div className="grid gap-6 rounded-[2.5rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur md:p-8 lg:grid-cols-[.75fr_1.25fr]">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.2em] text-blue-400">Weekly drop</p>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-white">A simple car-market email people might actually read.</h2>
+              <p className="mt-4 leading-8 text-zinc-300">
+                Every site inquiry can be tagged for the weekly newsletter, then pushed into Mailchimp, Brevo, ConvertKit, HubSpot, or Zapier once the list tool is connected.
               </p>
             </div>
 
-            <div className="flex flex-col justify-center">
-              <div className="rounded-[2rem] border border-white/10 bg-zinc-950/60 p-8">
-                <p className="text-sm font-black uppercase tracking-[0.2em] text-blue-400">
-                  The mission
-                </p>
-
-                <h3 className="mt-3 text-3xl font-black text-white">
-                  Make the process feel human again.
-                </h3>
-
-                <p className="mt-5 leading-8 text-zinc-300">
-                  This platform isn’t meant to feel like a giant dealership funnel. It’s meant to feel like having somebody in your corner who understands the market, understands the numbers, and actually enjoys helping people make smart automotive decisions.
-                </p>
-
-                <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-2xl border border-blue-400/20 bg-blue-500/10 p-5">
-                    <p className="text-3xl font-black text-white">
-                      1000+
-                    </p>
-
-                    <p className="mt-2 text-sm font-semibold text-blue-100">
-                      Drivers helped through the buying process
-                    </p>
-                  </div>
-
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-                    <p className="text-3xl font-black text-white">
-                      5+ Years
-                    </p>
-
-                    <p className="mt-2 text-sm font-semibold text-zinc-300">
-                      Hands-on dealership and automotive sales experience
-                    </p>
-                  </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {NEWSLETTER_TOPICS.map((topic) => (
+                <div key={topic} className="rounded-2xl border border-white/10 bg-zinc-950/50 p-4 text-sm font-bold text-zinc-200">
+                  {topic}
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-5 py-14">
-          <div className="grid gap-8 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/[0.05] to-white/[0.02] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur lg:grid-cols-[0.8fr_1.2fr]">
-            <div className="relative overflow-hidden rounded-[2rem] border border-blue-400/20 bg-gradient-to-br from-blue-500/20 via-zinc-950 to-black p-8">
-              <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full border border-white/10" />
+        <section className="mx-auto max-w-6xl px-5 py-12">
+          <div className="relative overflow-hidden rounded-[2.5rem] border border-blue-400/20 bg-blue-500 p-8 text-zinc-950 shadow-[0_25px_80px_rgba(59,130,246,0.25)] md:p-10">
+            <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full border border-white/30" />
+            <div className="absolute -bottom-24 left-20 h-72 w-72 rounded-full bg-white/20 blur-3xl" />
+            <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.22em] text-zinc-900/60">Ready when you are</p>
+                <h2 className="mt-3 max-w-3xl text-4xl font-black tracking-tight md:text-5xl">Send the basics. I’ll help you sort the move.</h2>
+                <p className="mt-4 max-w-2xl text-lg font-semibold leading-8 text-zinc-900/75">No giant dealer portal. No endless maze. Just a clean request and a real follow-up.</p>
+              </div>
+              <button type="button" onClick={scrollToContact} className="inline-flex items-center justify-center rounded-2xl bg-zinc-950 px-7 py-4 text-base font-black text-white shadow-xl shadow-zinc-950/20 transition hover:-translate-y-1 hover:bg-zinc-900 active:scale-[0.98]">
+                Start My Request
+              </button>
+            </div>
+          </div>
+        </section>
 
-              <p className="text-sm font-black uppercase tracking-[0.2em] text-blue-300">
-                About Mike
+        <section id="questions" className="mx-auto max-w-6xl px-5 pb-24">
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur md:p-8">
+            <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-blue-400">Questions</p>
+                <h2 className="mt-3 text-3xl font-black">Stuff people usually ask first.</h2>
+              </div>
+            </div>
+
+            <div className="mt-8 space-y-4">
+              {FAQS.map((faq) => (
+                <div key={faq.question} className="rounded-2xl border border-white/10 bg-zinc-950/40 p-5 transition hover:border-blue-400/30">
+                  <p className="text-lg font-black text-white">{faq.question}</p>
+                  <p className="mt-2 leading-7 text-zinc-300">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <div className="fixed bottom-5 left-1/2 z-50 w-[92%] max-w-xl -translate-x-1/2 rounded-[1.7rem] border border-blue-400/20 bg-zinc-950/80 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.55)] backdrop-blur-2xl">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-sm font-black text-white">Need help finding the right vehicle?</p>
+              <p className="text-xs text-zinc-400">Quick answers. No dealership maze.</p>
+            </div>
+            <button type="button" onClick={scrollToContact} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-blue-500 px-5 py-2 text-sm font-black text-white shadow-lg shadow-blue-500/20 transition hover:-translate-y-0.5 hover:bg-blue-600 active:scale-[0.98]">
+              Start Here
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
+
           
