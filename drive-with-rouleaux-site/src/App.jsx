@@ -288,11 +288,11 @@ function HeroVisual() {
   }
 
   return (
-    <div className="relative z-10 flex min-h-[320px] md:min-h-[420px] items-center justify-center overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-black via-zinc-950 to-blue-950/50 shadow-[0_35px_120px_rgba(0,0,0,0.55)]">
+    <div className="relative z-10 flex min-h-[260px] items-center justify-center overflow-hidden rounded-[2rem] md:min-h-[420px] md:rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-black via-zinc-950 to-blue-950/50 shadow-[0_35px_120px_rgba(0,0,0,0.55)]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_35%_20%,rgba(59,130,246,0.25),transparent_35%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_42%)]" />
       <div className="absolute -left-16 top-16 h-2 w-[32rem] rotate-[-18deg] rounded-full bg-blue-500/30 blur-md" />
       <div className="absolute right-[-7rem] bottom-24 h-2 w-[28rem] rotate-[14deg] rounded-full bg-white/10 blur-md" />
-      <LogoMark className="relative h-40 w-40 opacity-95" />
+      <LogoMark className="relative h-28 w-28 opacity-95 sm:h-40 sm:w-40" />
     </div>
   );
 }
@@ -385,23 +385,23 @@ export default function App() {
       </header>
 
       <main className="relative z-10">
-        <section className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-12 pt-8 lg:grid-cols-[1.05fr_.95fr] lg:pt-16">
+        <section className="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-10 pt-6 sm:px-5 lg:grid-cols-[1.05fr_.95fr] lg:gap-10 lg:pt-16">
           <div>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-zinc-300 shadow-2xl shadow-blue-500/10 backdrop-blur">
               <span className="h-2 w-2 rounded-full bg-blue-400" />
               Drive With Rouleaux
             </div>
 
-            <h1 className="max-w-4xl text-5xl font-black leading-[0.9] tracking-[-0.04em] sm:text-6xl lg:text-7xl">
+            <h1 className="max-w-4xl text-4xl font-black leading-[0.95] tracking-[-0.035em] sm:text-6xl lg:text-7xl">
               Drive smarter.
               <span className="block text-zinc-500">Buy with clarity.</span>
             </h1>
 
-            <p className="mt-8 max-w-2xl text-[1.08rem] leading-8 text-zinc-300">
+            <p className="mt-6 max-w-2xl text-base leading-7 text-zinc-300 sm:mt-8 sm:text-[1.08rem] sm:leading-8">
               Personal guidance for buying, trading, leasing, and finding the right fit.
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row">
               <button type="button" onClick={scrollToContact} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-blue-500 px-6 py-3 text-base font-black text-white shadow-lg shadow-blue-500/20 transition hover:-translate-y-0.5 hover:bg-blue-600 active:scale-[0.98]">
                 Start Here <Icon name="arrow" className="h-4 w-4" />
               </button>
@@ -420,31 +420,31 @@ export default function App() {
           <HeroVisual />
         </section>
 
-        <section id="about" className="mx-auto max-w-6xl px-5 py-8">
+        <section id="about" className="mx-auto max-w-6xl px-4 py-6 sm:px-5 sm:py-8">
           <button
             type="button"
             onClick={() => setIsBusinessCardFlipped((previous) => !previous)}
             className="group block w-full text-left [perspective:1600px]"
             aria-label="Flip digital business card to view contact info or about me"
           >
-            <div className={`relative min-h-[470px] transition-transform duration-700 [transform-style:preserve-3d] ${isBusinessCardFlipped ? "[transform:rotateY(180deg)]" : ""}`}>
+            <div className={`relative min-h-[760px] transition-transform duration-700 [transform-style:preserve-3d] sm:min-h-[620px] lg:min-h-[470px] ${isBusinessCardFlipped ? "[transform:rotateY(180deg)]" : ""}`}> 
               <div className="absolute inset-0 [backface-visibility:hidden]">
-                <div className="relative h-full overflow-hidden rounded-[2.75rem] border border-white/10 bg-gradient-to-br from-zinc-950 via-zinc-900 to-blue-950/40 p-8 shadow-[0_35px_120px_rgba(0,0,0,0.45)] backdrop-blur md:p-10">
+                <div className="relative h-full overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-zinc-950 via-zinc-900 to-blue-950/40 p-5 shadow-[0_35px_120px_rgba(0,0,0,0.45)] backdrop-blur sm:rounded-[2.75rem] sm:p-8 md:p-10">
                   <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full border border-blue-400/10" />
                   <div className="absolute bottom-0 left-0 h-48 w-48 rounded-full bg-blue-500/10 blur-3xl" />
 
-                  <div className="relative grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+                  <div className="relative grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
                     <div>
-                      <div className="flex items-center gap-4">
-                        <LogoMark className="h-24 w-24" />
+                      <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                        <LogoMark className="h-20 w-20 sm:h-24 sm:w-24" />
                         <div>
                           <p className="text-sm font-black uppercase tracking-[0.25em] text-blue-300">Digital Business Card</p>
-                          <h2 className="mt-2 text-4xl font-black tracking-tight text-white">Michael Roulo</h2>
+                          <h2 className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl">Michael Roulo</h2>
                           <p className="mt-1 text-lg font-semibold text-zinc-400">Drive With Rouleaux</p>
                         </div>
                       </div>
 
-                      <p className="mt-6 max-w-xl leading-8 text-zinc-300">
+                      <p className="mt-5 max-w-xl text-sm leading-7 text-zinc-300 sm:mt-6 sm:text-base sm:leading-8">
                         A simple way to connect for vehicle advice, shopping help, trade guidance, and real-world dealership insight.
                       </p>
 
@@ -509,14 +509,14 @@ export default function App() {
               </div>
 
               <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                <div className="relative h-full overflow-hidden rounded-[2.75rem] border border-blue-400/20 bg-gradient-to-br from-blue-950/50 via-zinc-950 to-black p-8 shadow-[0_35px_120px_rgba(0,0,0,0.45)] backdrop-blur md:p-10">
+                <div className="relative h-full overflow-hidden rounded-[2rem] border border-blue-400/20 bg-gradient-to-br from-blue-950/50 via-zinc-950 to-black p-5 shadow-[0_35px_120px_rgba(0,0,0,0.45)] backdrop-blur sm:rounded-[2.75rem] sm:p-8 md:p-10">
                   <div className="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
                   <div className="absolute -right-20 bottom-0 h-72 w-72 rounded-full border border-white/10" />
 
-                  <div className="relative grid h-full gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+                  <div className="relative grid h-full gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
                     <div>
                       <p className="text-sm font-black uppercase tracking-[0.25em] text-blue-300">About Me</p>
-                      <h2 className="mt-3 text-4xl font-black leading-tight text-white md:text-5xl">
+                      <h2 className="mt-3 text-3xl font-black leading-tight text-white md:text-5xl">
                         Real dealership experience. Cleaner car-buying help.
                       </h2>
                       <div className="mt-6 inline-flex rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-black text-zinc-300 transition group-hover:bg-white/10 group-hover:text-white">
@@ -550,7 +550,7 @@ export default function App() {
           </button>
         </section>
 
-        <section className="mx-auto grid max-w-6xl gap-5 px-5 py-6 md:grid-cols-3">
+        <section className="mx-auto grid max-w-6xl gap-4 px-4 py-6 sm:px-5 md:grid-cols-3">
           {SERVICES.map((item) => (
             <Card key={item.title} className="group relative overflow-hidden border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.03] text-white transition duration-300 hover:-translate-y-2 hover:border-blue-400/30 hover:bg-white/[0.09] hover:shadow-2xl hover:shadow-blue-950/20">
               <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-blue-500/10 blur-2xl" />
@@ -568,11 +568,11 @@ export default function App() {
           ))}
         </section>
 
-        <section id="contact" className="mx-auto max-w-6xl px-5 py-6">
+        <section id="contact" className="mx-auto max-w-6xl px-4 py-6 sm:px-5">
           <div className="grid gap-6 lg:grid-cols-[.75fr_1.25fr]">
             <div className="rounded-[2.5rem] border border-white/10 bg-white/[0.04] p-8 backdrop-blur">
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-400">Start here</p>
-              <h2 className="mt-3 text-4xl font-black tracking-tight">Send the basics.</h2>
+              <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">Send the basics.</h2>
               <p className="mt-4 leading-8 text-zinc-300">New, used, lease, trade, budget questions, all fair game.</p>
 
               <div className="mt-6 space-y-3 text-sm text-zinc-300">
@@ -648,7 +648,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="questions" className="mx-auto max-w-6xl px-5 pb-16 pt-6">
+        <section id="questions" className="mx-auto max-w-6xl px-4 pb-12 pt-6 sm:px-5 sm:pb-16">
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur md:p-8">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-blue-400">FAQ</p>
             <h2 className="mt-3 text-3xl font-black">Questions</h2>
@@ -672,7 +672,7 @@ export default function App() {
             <p className="mt-1 text-sm text-zinc-500">Better car-buying guidance.</p>
           </div>
 
-          <div className="flex items-center gap-4 text-sm text-zinc-400">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-zinc-400 md:justify-end">
             <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="transition hover:text-white">Instagram</a>
             <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="transition hover:text-white">LinkedIn</a>
             <a href={`mailto:${INBOX_EMAIL}`} className="transition hover:text-white">Email</a>
