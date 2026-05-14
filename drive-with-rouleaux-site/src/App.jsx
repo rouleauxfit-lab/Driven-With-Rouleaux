@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const INBOX_EMAIL = "DriveWithRouleaux@gmail.com";
 const SHARED_THREAD_SUBJECT = "Drive With Rouleaux Lead Inbox";
@@ -298,6 +298,23 @@ function HeroVisual() {
 }
 
 export default function App() {
+  useEffect(() => {
+    const script1 = document.createElement("script");
+    script1.src = "https://www.googletagmanager.com/gtag/js?id=G-0L7KM12VN2";
+    script1.async = true;
+
+    const script2 = document.createElement("script");
+    script2.innerHTML = `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0L7KM12VN2');
+    `;
+
+    document.head.appendChild(script1);
+    document.head.appendChild(script2);
+  }, []);
+
   const [isBusinessCardFlipped, setIsBusinessCardFlipped] = useState(false);
   const [form, setForm] = useState(INITIAL_FORM);
   const [status, setStatus] = useState({ type: "idle", message: "" });
